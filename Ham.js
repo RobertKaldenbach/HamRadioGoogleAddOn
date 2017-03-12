@@ -11,13 +11,8 @@ function onOpen() {
       .addSeparator()
       .addSubMenu(ui.createMenu('Options')
           .addItem('Create New Log Book', 'newLogBook')
-          .addItem('Setup', 'setupOptions'))
+          .addItem('Setup', 'test'))
       .addToUi();
-}
-
-function menuItem1() {
-  SpreadsheetApp.getUi() // Or DocumentApp or FormApp.
-     .alert('You clicked the first menu item!');
 }
 
 function newLogBook() {
@@ -26,32 +21,60 @@ function newLogBook() {
   //var newSheet = SpreadsheetApp.create(date + " Log Book");
  // SpreadsheetApp.open(date + " Log Book");
 }
-function newLogEntry() {
-sheet.appendRow(['Date','Time','Contact']);
+function test() {
+//sheet.appendRow(['Date','Time','Contact']);
+  newTopRow();
 }
-function setupOptions() {
+function newLogEntry() {
   var ui = SpreadsheetApp.getUi(); // Same variations.
 
-  var result = ui.prompt(
-      'Let\'s get to know each other!',
-      'Please enter your name:',
+  //Get Entries
+  var dateOfContact = ui.prompt(
+      'Date:',
       ui.ButtonSet.OK_CANCEL);
-
-  // Process the user's response.
-  var button = result.getSelectedButton();
-  var text = result.getResponseText();
-  if (button == ui.Button.OK) {
-    // User clicked "OK".
-    ui.alert('Your name is ' + text + '.');
-  } else if (button == ui.Button.CANCEL) {
-    // User clicked "Cancel".
-    ui.alert('I didn\'t get your name.');
-  } else if (button == ui.Button.CLOSE) {
-    // User clicked X in the title bar.
-    ui.alert('You closed the dialog.');
-  }
+  var startTime = ui.prompt(
+    'Start Time:',
+      ui.ButtonSet.OK_CANCEL);
+    var frequency = ui.prompt(
+      'Frequency:',
+      ui.ButtonSet.OK_CANCEL);
+    var mode = ui.prompt(
+      'mode:',
+      ui.ButtonSet.OK_CANCEL);
+    var power = ui.prompt(
+      'Power:',
+      ui.ButtonSet.OK_CANCEL);
+    var station = ui.prompt(
+      'Station Worked',
+      ui.ButtonSet.OK_CANCEL);
+    var reportSent = ui.prompt(
+      'Report Sent',
+      ui.ButtonSet.OK_CANCEL);
+    var reportRecieved = ui.prompt(
+      'Report Recieved',
+      ui.ButtonSet.OK_CANCEL);
+    var remarks = ui.prompt(
+      'Remarks',
+      ui.ButtonSet.OK_CANCEL);
+   var endTime = ui.prompt(
+      'End Time',
+      ui.ButtonSet.OK_CANCEL);
+  
+  //Post Entries 
+sheet.appendRow([dateOfContact.getResponseText(),
+                 startTime.getResponseText(),
+                 endTime.getResponseText(),
+                 frequency.getResponseText(),
+                 mode.getResponseText(),
+                 power.getResponseText()
+                 ,station.getResponseText(),
+                 reportSent.getResponseText(),
+                 reportRecieved.getResponseText(),
+                 '',
+                 '',
+                 remarks.getResponseText()]);
 }
 
-  
-  
-
+function newTopRow() {
+sheet.appendRow(['Date','Time Start UTC','Time End UTC','Frequency','Mode','Power','Station','Report Sent','Report Recieved','QSL Sent','QSL Recieved','Remarks']);
+}
